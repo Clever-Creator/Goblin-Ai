@@ -1,3 +1,9 @@
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => {
+    console.log(`Server inashusha nondo kwenye port ${PORT}`);
+});
+
 const express = require('express');
 
 const mongoose = require('mongoose');
