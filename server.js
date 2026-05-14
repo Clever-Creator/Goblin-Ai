@@ -1,28 +1,26 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const { OpenAI } = require('openai');
+require('dotenv').config();
+
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-server.listen(PORT, () => {
-    console.log(`Server inashusha nondo kwenye port ${PORT}`);
-});
-
-const express = require('express');
-
-const mongoose = require('mongoose');
 
 // Hapa weka link yako uliyocopy, hakikisha umeweka password yako sahihi
 
-mongoose.connect(mongoURI)
+// Unganisha MongoDB
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB Atlas Is Connected!'))
   .catch(err => console.error('Database Is Corrupted:', err));
 
-// Schema kwa ajili ya kutunza history ya miradi yako na maongezi
 const chatSchema = new mongoose.Schema({
-    userId: String, // Hapa tutatumia jina la mtumiaji (e.g., Goblin Schofield)
+    userId: String,
     messages: Array,
     timestamp: { type: Date, default: Date.now }
 });
 const Chat = mongoose.model('Chat', chatSchema);
-const { OpenAI } = require('openai');
-const app = express();
+
 app.use(express.json());
 app.use(express.static('public'));
 
@@ -78,6 +76,16 @@ app.post('/generate-image', async (req, res) => {
         res.status(500).json({ error: "Picha imegoma kutoka kiongozi!" });
     }
 });
+app.use(express.json());
+app.use(express.static('public'));
+
+// Hapa weka zile app.post('/chat') na app.post('/generate-image') zako
 
 app.listen(3000, () => console.log('GOBLIN AI Is Alive!'));
-module.exports = app;
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`GOBLIN AI inashusha nondo kwenye port ${PORT}`);
+    });
+}
+
+module.exports = app; // Hii iwe mstari wa MWISHO kabisa wa faili
