@@ -1,0 +1,15 @@
+{
+  "name": "goblin-ai",
+  "version": "1.0.0",
+  "description": "Professional AI Assistant for Goblix Industries",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^7.2.0",
+    "mongoose": "^8.0.0",
+    "openai": "^4.24.1"
+  }
+}
