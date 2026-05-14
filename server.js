@@ -80,3 +80,4 @@ app.post('/generate-image', async (req, res) => {
 });
 
 app.listen(3000, () => console.log('GOBLIN AI Is Alive!'));
+module.exports = app;
